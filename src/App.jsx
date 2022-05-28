@@ -10,7 +10,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ethers, utils, Contract } from "ethers";
 import DOW_ABI from "./util/DOW_ABI.json";
 import Footer from "./components/Footer/Footer";
-const DOWContract = "0x324f30784394D0374d79B1c9bF557aeA141a0De4";
+const DOWContract = "0x3998cb64342a9Ff27177283E2cf8049803D5dB08";
 const App = () => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const [connected, setConnected] = useState(false);
@@ -60,7 +60,7 @@ const App = () => {
     const networkID = await window.ethereum.request({
       method: "eth_chainId",
     });
-    if (Number(networkID) !== 83) {
+    if (Number(networkID) !== 71401) {
       setConnected(false);
     } else setConnected(true);
     const accounts = await provider.listAccounts();
@@ -176,7 +176,7 @@ const App = () => {
       const networkID = await window.ethereum.request({
         method: "eth_chainId",
       });
-      if (Number(networkID) !== 83) return;
+      if (Number(networkID) !== 71401) return;
       const userAccount = await getUserBalance(accounts[0]);
       setWalletAddress(accounts[0]);
       getPlayerStatistics();
@@ -207,7 +207,7 @@ const App = () => {
     const networkID = await window.ethereum.request({
       method: "eth_chainId",
     });
-    if (Number(networkID) !== 83) {
+    if (Number(networkID) !== 71401) {
       setConnected(false);
       setUserBalance({
         DOWTokenBalance: 0,
@@ -222,7 +222,7 @@ const App = () => {
       });
 
       alert(
-        "You're currently connected to an unsupported network, please switch to Meter Testnet"
+        "You're currently connected to an unsupported network, please switch to Nervos Testnet"
       );
       window.location.reload();
       return;
