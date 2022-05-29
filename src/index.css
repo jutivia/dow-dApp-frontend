@@ -105,7 +105,7 @@ h2 {
     hsla(25, 97%, 49%, 0.75),
     hsla(0, 98%, 49%, 0.933) 90%
   );
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 h1 {

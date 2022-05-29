@@ -35,9 +35,9 @@ const StartGame = ({
   const [isLoading, setIsLoading] = useState(null);
   const signer = provider.getSigner();
   const DOWContractInstance = new Contract(DOWContract, DOW_ABI, signer);
-  //=======================//
-  //--Check Clear Clicked--//
-  //=======================//
+  //===========================//
+  //--Handles Start Game Call--//
+  //===========================//
   useEffect(() => {
     setTimeout(() => {
       if (document.readyState === "complete") {
@@ -50,87 +50,126 @@ const StartGame = ({
   const callStart = () => {
     startGame();
   };
-  //=========================//
-  //--Handle Number Buttons--//
-  //=========================//
+  useEffect(() => {
+    //=================================//
+    //-Handles Backspace & Enter Keys--//
+    //=================================//
+    // document.addEventListener(
+    //   "keyup",
+    //   (e) => {
+    //     let pressedKey = String(e.key);
+    //     console.log("You pressed", pressedKey, "on the keyboard");
+    //     if (pressedKey === "Backspace") {
+    //       // console.log("You clicked Backspace");
+    //       handleClear(e);
+    //       // return;
+    //     }
+    //     if (pressedKey === "Enter") {
+    //       // console.log("You clicked Enter");
+    //       handlePlay(e);
+    //       // return;
+    //     }
+    //   },
+    //   []
+    // );
+    // console.log("Player Input: ", playerInput);
+  });
+  //==========================//
+  //--Handles Number Buttons--//
+  //==========================//
   const handleNumberButton = (e) => {
     e.preventDefault();
+    // Form that wraps input fields
     const entries = document.querySelector(".entries");
+    // Targets onScreen buttons
     const target = e.target;
+    // Max length of each input field
     const maxLength = parseInt(entries[index].attributes["maxlength"].value);
+    // Current input field
     const current = entries[index];
+    // Next input field
     const next = entries[index].nextElementSibling;
     current.value = parseInt(target.value);
     // Stop pushing to array when all inputs are filled
     if (playerInput.length < 4) {
       setPlayerInput((playerInput) => [...playerInput, parseInt(target.value)]);
     }
-
+    // Move focus to next input field if focus is not on the last input field
     if (current.value.length >= maxLength && next !== null) {
       setIndex(index + 1);
       next.focus();
-    } else if (current.value.length >= maxLength && next === null) {
+    } // Keep focus on current input field if it is the last input field
+    else if (current.value.length >= maxLength && next === null) {
       entries[index].value = playerInput[3];
       setIndex(index);
       current.focus();
     }
   };
-  //==========================//
+  //=========================//
   //--Handle Keyboard Input--//
-  //========================//
+  //=========================//
   const handlePlayerInput = (e) => {
-    const target = e.target;
-    const maxLength = parseInt(target.attributes["maxlength"].value);
-    const previous = target.previousElementSibling;
-    const next = target.nextElementSibling;
-    const inputs = document.querySelectorAll(".input");
     e.preventDefault();
+    // Targets the input fields
+    const target = e.target;
+    // Max length of each input field
+    const maxLength = parseInt(target.attributes["maxlength"].value);
+    // Previous input field
+    // const previous = target.previousElementSibling;
+    // Next input field
+    const next = target.nextElementSibling;
+    // Wrapper for all input fields
+    const inputs = document.querySelectorAll(".input");
 
     // Set valid inputs to be numbers 0 - 9
     const regX = /^[0-9]+$/;
     // Checks if inputs entered are valid and stores them in an array
     if (regX.test(target.value)) {
       setPlayerInput((playerInput) => [...playerInput, parseInt(target.value)]);
-    } else {
+    } // Set entry to "" and keep focus on current input field if entry is invalid
+    else {
       target.value = "";
       target.focus();
     }
-
+    // Container for all input fields
     let container = document.getElementsByClassName("input")[0];
     container.onkeyup = (e) => {
-      let focusedInputLength = target.value.length;
-      let lastInput = inputs[inputs.length - 1];
+      // Length of current input field
+      const focusedInputLength = target.value.length;
+      // Last input field
+      const lastInput = inputs[inputs.length - 1];
+      // Move focus to next input field if entry is valid and it is not the last input field
       if (
         focusedInputLength >= maxLength &&
         regX.test(e.target.value) &&
         next !== null
       ) {
         next.focus();
-      } else if (target === lastInput && next === null) {
+      } // Keep focus on current input field if it is the last input field
+      else if (target === lastInput && next === null) {
         target.focus();
       }
 
       // Move to previous field if empty (user pressed backspace)
-      if (focusedInputLength < maxLength) {
-        let firstInput = inputs[0];
-        if (target === inputs[1]) {
-          // previous.attributes["disabled"] = setIsDisabled(false);
-          firstInput.focus();
-          playerInput.pop();
-        }
-        if (previous === null && target === firstInput) {
-          target.focus();
-          playerInput.pop();
-          setPlayerInput([]);
-        } else if (previous !== firstInput) {
-          playerInput.pop();
-          previous.focus();
-        } else if (target === lastInput) {
-          target.value = "";
-          playerInput.pop();
-          target.focus();
-        }
-      }
+      // if (focusedInputLength < maxLength) {
+      //   let firstInput = inputs[0];
+      //   if (target === inputs[1]) {
+      //     firstInput.focus();
+      //     playerInput.pop();
+      //   }
+      //   if (previous === null && target === firstInput) {
+      //     target.focus();
+      //     playerInput.pop();
+      //     setPlayerInput([]);
+      //   } else if (previous !== firstInput) {
+      //     playerInput.pop();
+      //     previous.focus();
+      //   } else if (target === lastInput) {
+      //     target.value = "";
+      //     playerInput.pop();
+      //     target.focus();
+      //   }
+      // }
     };
   };
 
@@ -182,12 +221,12 @@ const StartGame = ({
   //----  Handles Play ----//
   //=======================//
   const handlePlay = async (e) => {
+    e.preventDefault();
     const entries = document.querySelector(".entries");
     const inputs = document.querySelectorAll(".input");
     const winMessage = "WAY TO GO GENIUS, YOU WON!!!";
     const loseMessage = "GAME OVER! BETTER LUCK NEXT TIME";
     let firstInput = inputs[0];
-    e.preventDefault();
     if (playerInput.length < 4) {
       alert("INCOMPLETE ENTRIES");
       return;

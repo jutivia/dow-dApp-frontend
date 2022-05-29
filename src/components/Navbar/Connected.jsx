@@ -9,7 +9,7 @@ const Connected = (props) => {
   return (
     <ul className="connected">
       <li>{parseFloat(DOWTokenBalance).toFixed(3)} DOW</li>
-      <li>{parseFloat(networkCoinBalance).toFixed(3)} CKB</li>
+      <li>{parseFloat(networkCoinBalance).toFixed(3)} BOBA</li>
       <li>
         {address.slice(0, 5)}...
         {address.slice(address.length - 4, address.length)}
