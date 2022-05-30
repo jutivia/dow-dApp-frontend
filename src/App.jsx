@@ -10,7 +10,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ethers, utils, Contract } from "ethers";
 import DOW_ABI from "./util/DOW_ABI.json";
 import Footer from "./components/Footer/Footer";
-const DOWContract = "0x5032bD700701310d8571C109704e243B0842c891";
+const DOWContract = "0x324f30784394D0374d79B1c9bF557aeA141a0De4";
 const App = () => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const [connected, setConnected] = useState(false);
