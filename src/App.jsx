@@ -60,7 +60,7 @@ const App = () => {
     const networkID = await window.ethereum.request({
       method: "eth_chainId",
     });
-    if (Number(networkID) !== 28) {
+    if (Number(networkID) !== 83) {
       setConnected(false);
     } else setConnected(true);
     const accounts = await provider.listAccounts();
@@ -176,7 +176,7 @@ const App = () => {
       const networkID = await window.ethereum.request({
         method: "eth_chainId",
       });
-      if (Number(networkID) !== 28) return;
+      if (Number(networkID) !== 83) return;
       const userAccount = await getUserBalance(accounts[0]);
       setWalletAddress(accounts[0]);
       getPlayerStatistics();
@@ -207,7 +207,7 @@ const App = () => {
     const networkID = await window.ethereum.request({
       method: "eth_chainId",
     });
-    if (Number(networkID) !== 28) {
+    if (Number(networkID) !== 83) {
       setConnected(false);
       setUserBalance({
         DOWTokenBalance: 0,
@@ -222,7 +222,7 @@ const App = () => {
       });
 
       alert(
-        "You're currently connected to an unsupported network, please switch to Boba Testnet"
+        "You're currently connected to an unsupported network, please switch to Meter Testnet"
       );
       window.location.reload();
       return;
