@@ -43,11 +43,12 @@ const App = () => {
         const accounts = await window.ethereum.request({
           method: "eth_requestAccounts",
         });
-        setWalletAddress(accounts[0]);
         eagerConnect();
-        getUserBalance(accounts[0]);
-        if (connected) getPlayerStatistics();
-        else alert("Not connected to a supported DOW Network");
+        if (connected) {
+          setWalletAddress(accounts[0]);
+          getUserBalance(accounts[0]);
+          getPlayerStatistics();
+        }
       } catch (error) {
         console.error(error);
       }
@@ -66,15 +67,18 @@ const App = () => {
     const accounts = await provider.listAccounts();
     const userAccount = await getUserBalance(accounts[0]);
 
-    if (!accounts.length) return;
-    setUserBalance({
-      DOWTokenBalance: userAccount.formartedDOWTokenBalance,
-      networkCoinBalance: userAccount.formartedNetworkCoinBalance,
-    });
+    if (!accounts.length) {
+      return;
+    } else {
+      setUserBalance({
+        DOWTokenBalance: userAccount.formartedDOWTokenBalance,
+        networkCoinBalance: userAccount.formartedNetworkCoinBalance,
+      });
 
-    getPlayerStatistics();
-    setConnected(true);
-    setWalletAddress(accounts[0]);
+      setConnected(true);
+      setWalletAddress(accounts[0]);
+      getPlayerStatistics();
+    }
   };
 
   // Airdrop free DOW tokens to new players
@@ -209,17 +213,6 @@ const App = () => {
     });
     if (Number(networkID) !== 83) {
       setConnected(false);
-      setUserBalance({
-        DOWTokenBalance: 0,
-        networkCoinBalance: 0,
-      });
-      setPlayerStatistics({
-        gamesPlayed: 0,
-        gamesLost: 0,
-        currentWinStreak: 0,
-        highestWinStreak: 0,
-        gamesWon: 0,
-      });
 
       alert(
         "You're currently connected to an unsupported network, please switch to Meter Testnet"
@@ -242,6 +235,7 @@ const App = () => {
       networkCoinBalance: userAccount.formartedNetworkCoinBalance,
     });
     setConnected(true);
+    setWalletAddress(accounts[0]);
     getPlayerStatistics();
   };
   useEffect(() => {
