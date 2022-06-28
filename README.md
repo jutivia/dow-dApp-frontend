@@ -4,9 +4,6 @@ Polygon Hackerthon Submission
 
 <img src="https://github.com/AbdulrasheedAdediran/dow-dApp-frontend/blob/main/src/components/assets/DOW_LandingPage.png" width="768" height="480">
 
-
-<img src="./asset/dow.png" width="768" height="480">
-
 ## About
 
 Dead or Wounded (DOW) is a play-to-earn decentralised game where players can earn DOW tokens (Dead or Wounded dApp native token).
