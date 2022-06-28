@@ -30,4 +30,4 @@ Dead or Wounded is beginner friendly and does not require players to have any te
 
 #
 
-# **Visit Live DApp to [Play Dead or Wounded](https://deadorwounded.io)**.
+# **Visit Live DApp to [Play Dead or Wounded](https://deadorwounded.vercel.app)**.
